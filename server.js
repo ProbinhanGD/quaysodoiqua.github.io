@@ -43,13 +43,17 @@ let number = Math.floor(Math.random() * (1800130 - 1800100 + 1)) + 1800100;
 
         // GỬI MAIL SAU (không làm treo server)
         try {
-            let transporter = nodemailer.createTransport({
+           let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
-    secure: false,
+    secure: false, // QUAN TRỌNG
+    requireTLS: true,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
@@ -76,6 +80,7 @@ app.listen(PORT, () => {
     console.log("Server running on port " + PORT);
 
 });
+
 
 
 
