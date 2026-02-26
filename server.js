@@ -28,7 +28,7 @@ app.post("/send", async (req, res) => {
             return res.json({ success: false, message: "Chỉ một lần thôi cu" });
         }
 
-        let number = Math.floor(Math.random() * (1800200 - 1800100 + 1)) + 1800100;
+        let number = Math.floor(Math.random() * (1800130 - 1800100 + 1)) + 1800100;
 
         users.push({
             username,
@@ -72,4 +72,5 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log("Server running on port " + PORT);
+
 });
