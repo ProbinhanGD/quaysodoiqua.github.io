@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quay mã đổi quà</title>
+    <style>
+        body {
+            font-family: Lexend, Lexend;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .box {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 15px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            background: #ff9800;
+            color: white;
+        }
+
+        button:hover {
+            background: #e68900;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h1>Quay mã đổi quà</h1>
+
+        <input type="text" id="username" placeholder="Nhập username">
+        <br>
+        <button onclick="spin()">Quay</button>
+
+        <div id="result"></div>
+    </div>
+
+<script>
+
+function animateToNumber(finalNumber, element) {
+    let current = 1800100;
+    let increment = Math.ceil((finalNumber - current) / 30);
+
+    let interval = setInterval(() => {
+        current += increment;
+
+        if (current >= finalNumber) {
+            current = finalNumber;
+            clearInterval(interval);
+        }
+
+        element.innerText = "Số của bạn là: " + current;
+    }, 30);
+}
+
+function spin() {
+    let username = document.getElementById("username").value.trim();
+    let resultDiv = document.getElementById("result");
+    let button = document.querySelector("button");
+
+    if (!username) {
+        alert("Nhập username trước!");
+        return;
+    }
+
+    resultDiv.innerText = "Chờ tí...";
+    button.disabled = true;
+
+    fetch("/send", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if (!data.success) {
+            resultDiv.innerText = "";
+            button.disabled = false;
+            alert(data.message);
+            return;
+        }
+
+        animateToNumber(data.number, resultDiv);
+
+    })
+    .catch(err => {
+        resultDiv.innerText = "";
+        button.disabled = false;
+        alert("Lỗi kết nối server!");
+        console.error(err);
+    });
+}
+
+</script>
+
+</body>
+</html>
