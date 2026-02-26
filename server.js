@@ -46,8 +46,8 @@ let number = Math.floor(Math.random() * (1800130 - 1800100 + 1)) + 1800100;
             let transporter = nodemailer.createTransport({
                 service: "gmail",
                 auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS
+                    user: process.env.mosfet115405@gmail.com,
+                    pass: process.env.zzerxyvzfclvuwex
                 }
             });
 
@@ -74,4 +74,5 @@ app.listen(PORT, () => {
     console.log("Server running on port " + PORT);
 
 });
+
 
