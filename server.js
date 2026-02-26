@@ -52,8 +52,8 @@ let number = Math.floor(Math.random() * (1800130 - 1800100 + 1)) + 1800100;
             });
 
             await transporter.sendMail({
-                from: process.env.EMAIL_USER,
-                to: process.env.EMAIL_USER,
+from: process.env.EMAIL_USER,
+to: process.env.EMAIL_USER,
                 subject: "New Random Number",
                 text: `Username: ${username}\nNumber: ${number}`
             });
@@ -74,6 +74,7 @@ app.listen(PORT, () => {
     console.log("Server running on port " + PORT);
 
 });
+
 
 
 
